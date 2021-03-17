@@ -133,8 +133,13 @@ putgitrepo() { # Downloads a gitrepo $1 and places the files in $2 only overwrit
 	[ -z "$3" ] && branch="master" || branch="$repobranch"
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2"
+<<<<<<< HEAD
 	chown -R "$name":wheel "$dir" "$2"
 	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 "$1" "$dir" >/dev/null 2>&1
+=======
+	chown "$name":wheel "$dir" "$2"
+	sudo -u "$name" git clone --recursive -b "$branch" --depth 1 --recurse-submodules "$1" "$dir" >/dev/null 2>&1
+>>>>>>> e493ee50a0a91082de980db2aeb97620bb42d2c9
 	sudo -u "$name" cp -rfT "$dir" "$2"
 	}
 
