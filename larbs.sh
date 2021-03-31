@@ -7,15 +7,13 @@
 
 while getopts ":a:r:b:p:h" o; do case "${o}" in
 	h) printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -p: Dependencies and programs csv (local file or url)\\n  -a: AUR helper (must have pacman-like syntax)\\n  -h: Show this message\\n" && exit 1 ;;
-	r) dotfilesrepo=${OPTARG} && git ls-remote "$rootricerepo" || exit 1 ;;
-	e) rootricerepo=${OPTARG} && git ls-remote "$dotfilesrepo" || exit 1 ;;
+	r) dotfilesrepo=${OPTARG} && git ls-remote "$dotfilesrepo" || exit 1 ;;
 	b) repobranch=${OPTARG} ;;
 	p) progsfile=${OPTARG} ;;
 	a) aurhelper=${OPTARG} ;;
 	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit 1 ;;
 esac done
 
-[ -z "$rootricerepo" ] && rootricerepo="https://github.com/sheriffmediocre/rootrice.git"
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://github.com/sheriffmediocre/voidrice.git"
 [ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/SheriffMediocre/LARBS/master/progs.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
@@ -215,12 +213,6 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA \"~
 https://www.archlinux.org/feeds/news/" > "/home/$name/.config/newsboat/urls"
 # make git ignore deleted LICENSE & README.md files
 git update-index --assume-unchanged "/home/$name/README.md" "/home/$name/LICENSE" "/home/$name/FUNDING.yml"
-
-# Install the root dotfiles in the user's home directory
-putgitrepo "$rootricerepo" "/" "$repobranch"
-rm -r "/README.md"
-# make git ignore deleted LICENSE & README.md files
-git update-index --assume-unchanged "/README.md"
 
 # Most important command! Get rid of the beep!
 systembeepoff
