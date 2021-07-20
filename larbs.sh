@@ -16,7 +16,7 @@ esac done
 
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://github.com/sheriffmediocre/voidrice.git"
 [ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/SheriffMediocre/LARBS/master/progs.csv"
-[ -z "$aurhelper" ] && aurhelper="paru"
+[ -z "$aurhelper" ] && aurhelper="paru-bin"
 [ -z "$repobranch" ] && repobranch="master"
 
 ### FUNCTIONS ###
